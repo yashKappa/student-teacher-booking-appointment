@@ -1,13 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/View/Home';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-     <Home />
-    </div>
+    <Router basename="/student-teacher-booking-appointment">
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

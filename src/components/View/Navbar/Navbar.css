@@ -1,0 +1,195 @@
+.container {
+  width: 100% !important;
+}
+
+.Logo {
+  width: 30px;
+}
+
+/* General Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: #1e1e1e; /* Dark neutral */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f5f5f5;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Centered nav links */
+.nav-center {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-center li a {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.nav-center li a:hover {
+  border: 1px solid #f5f5f5;
+  border-radius: 0.3rem;
+  background-color: #333;
+}
+
+/* Settings dropdown */
+.settings-dropdown {
+  position: relative;
+}
+
+.settings-btn {
+  background: #b22222; /* Firebrick red */
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 0.3rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 35px;
+  background-color: #2a2a2a;
+  min-width: 150px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: #fff;
+  padding: 10px 15px;
+  display: block;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #3a3a3a;
+}
+
+/* Show on hover */
+.settings-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Menu Button (for mobile) */
+.menu-btn {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile Sidebar */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #222;
+  color: white;
+  padding: 60px 20px 20px;
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  margin: 20px 0;
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.side-menu a:hover {
+  text-decoration: underline;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Active state */
+.nav-center li a.active {
+  background-color: #fdd835; /* warm yellow */
+  color: #1e1e1e;
+  border-radius: 0.3rem;
+  font-weight: bold;
+}
+
+.nav-center li a.active:hover {
+  border: none;
+  background-color: #fbc02d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-center {
+    display: none;
+  }
+
+  .settings-dropdown {
+    display: none;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+}

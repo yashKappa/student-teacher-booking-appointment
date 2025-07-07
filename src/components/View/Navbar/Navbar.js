@@ -1,0 +1,68 @@
+// src/components/Navbar.js
+import React, { useState, useEffect } from 'react';
+import './Navbar.css';
+
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
+
+  // Set active section based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'overview', 'about'];
+      const scrollY = window.scrollY + 100;
+
+      for (let section of sections) {
+        const element = document.getElementById(section);
+        if (element && element.offsetTop <= scrollY && scrollY < element.offsetTop + element.offsetHeight) {
+          setActiveSection(section);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <>
+      <nav className="navbar">
+        <div className="navbar-left">
+          <span className="brand">S&T</span>
+        </div>
+
+        <ul className="nav-center">
+          <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
+          <li><a href="#overview" className={activeSection === 'overview' ? 'active' : ''}>Overview</a></li>
+          <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>About</a></li>
+        </ul>
+
+        <div className="settings-dropdown">
+          <button className="settings-btn">Settings</button>
+          <div className="dropdown-content">
+            <a href="#student-login">Student Login</a>
+            <a href="#teacher-login">Teacher Login</a>
+          </div>
+        </div>
+
+        <button className="menu-btn" onClick={toggleMenu}>☰</button>
+      </nav>
+
+      <div className={`side-menu ${menuOpen ? 'open' : ''}`}>
+        <button className="close-btn" onClick={closeMenu}>×</button>
+        <ul>
+          <li><a href="#home" onClick={closeMenu}>Home</a></li>
+          <li><a href="#overview" onClick={closeMenu}>Overview</a></li>
+          <li><a href="#about" onClick={closeMenu}>About</a></li>
+          <li><a href="#student-login" onClick={closeMenu}>Student Login</a></li>
+          <li><a href="#teacher-login" onClick={closeMenu}>Teacher Login</a></li>
+        </ul>
+      </div>
+    </>
+  );
+};
+
+export default Navbar;

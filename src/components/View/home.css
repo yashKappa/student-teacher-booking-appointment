@@ -1,0 +1,222 @@
+.home {
+  margin: 0% !important;
+  padding: 0% !important;
+  box-sizing: border-box !important;
+}
+
+#home,
+#overview,
+#about {
+  padding-top: 5rem !important;
+}
+
+body,
+html,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.scrollable-content {
+  position: absolute;
+  top: 64px; /* match navbar height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* General Section Styling */
+.home-section {
+  position: relative;
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(180deg, #fff1f0, #fffbe6, #f9f9f9); /* soft red to yellow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Content Box */
+.home-content {
+  z-index: 1;
+  margin-top: 3rem;
+}
+
+.home-content h1 {
+  font-size: 3rem;
+  color: #1a1a1a; /* blackish */
+  margin-bottom: 20px;
+}
+
+.home-content p {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.home-actions .btn {
+  padding: 12px 28px;
+  margin: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background-color: #c0392b; /* red */
+  color: white;
+  box-shadow: 0 4px 14px rgba(192, 57, 43, 0.4);
+}
+
+.btn.primary:hover {
+  background-color: #922b21;
+  transform: scale(1.05);
+}
+
+.btn.secondary {
+  background-color: #fff;
+  color: #c0392b;
+  border: 2px solid #c0392b;
+}
+
+.btn.secondary:hover {
+  background-color: #fff0f0;
+  transform: scale(1.05);
+}
+
+/* Slideshow */
+.slideshow {
+  position: relative;
+  height: 30px;
+  font-size: 1.1rem;
+  color: #aa0000;
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  animation: slideFade 12s infinite;
+}
+
+.slide:nth-child(1) { animation-delay: 0s; }
+.slide:nth-child(2) { animation-delay: 4s; }
+.slide:nth-child(3) { animation-delay: 8s; }
+
+@keyframes slideFade {
+  0%, 100% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  30% { opacity: 1; }
+  40% { opacity: 0; transform: translateY(10px); }
+}
+
+/* Floating Icons */
+.floating-icons {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0.2;
+  font-size: 2.5rem;
+  pointer-events: none;
+  animation: floatIcons 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatIcons {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-20px); }
+}
+
+/* Entrance Animations */
+.animated-fade {
+  animation: fadeIn 1.5s ease;
+}
+
+.animated-slide {
+  animation: slideUp 1.2s ease;
+}
+
+.animated-slide-delay {
+  animation: slideUp 1.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.features-section {
+  margin-top: 1rem;
+}
+
+.features-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  gap: 50px;
+}
+
+.feature-box {
+  width: 300px;
+  background: #ffffffd9;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  transition: transform 0.3s;
+  text-align: center;
+}
+
+.feature-box:hover {
+  transform: translateY(-5px);
+}
+
+.feature-box .icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #d32f2f; /* dark red */
+}
+
+/* Trust badges */
+.trust-badges {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.trust-badges h4 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.trust-badges .badges img {
+  margin: 0 15px;
+  height: 40px;
+  transition: transform 0.3s;
+}
+
+.trust-badges .badges img:hover {
+  transform: scale(1.1);
+}
+
+
+::-webkit-scrollbar{
+    display: none;
+}
