@@ -1,10 +1,16 @@
-<!-- public/404.html -->
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=/student-teacher-booking-appointment/" />
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      // Rewrite to index.html for React Router to handle
+      window.location.replace(
+        window.location.origin + "/student-teacher-booking-appointment" + "/"
+      );
+    </script>
   </head>
   <body>
-    <p>Redirecting to homepage...</p>
+    <p>Redirecting to the app...</p>
   </body>
 </html>
