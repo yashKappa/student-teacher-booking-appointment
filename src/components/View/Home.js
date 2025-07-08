@@ -6,6 +6,7 @@ import About from './About/About';
 import Branch from './Branch/Branch';
 import Course from './Course/Course';
 import './home.css';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -23,8 +24,8 @@ const Home = () => {
     </p>
 
     <div className="home-actions">
-      <a href="#student-login" className="btn primary">Student Login</a>
-      <a href="#teacher-login" className="btn secondary">Teacher Login</a>
+       <Link to="/student" className="btn primary">Student Login</Link>
+  <Link to="/teacher" className="btn secondary">Teacher Login</Link>
     </div>
 
     <div className="slideshow">
@@ -59,6 +60,12 @@ const Home = () => {
     <span>💡</span>
   </div>
 
+  <div className="floating-icons-left">
+    <span>🧠</span>
+    <span>👨‍🎓</span>
+    <span>🏫</span>
+  </div>
+
   </div>
 
   {/* NEW SECTION: Features */}
@@ -73,6 +80,7 @@ const Home = () => {
       <Course />
       <Overview />
       <About />
+      
       </div>
     </div>
   );

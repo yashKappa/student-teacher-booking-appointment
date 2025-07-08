@@ -1,7 +1,10 @@
-// src/components/Register.js
 import React, { useState } from 'react';
-import './Student.css'; // Same CSS used for login
-import { Link } from 'react-router-dom';
+import './Student.css';
+import { useNavigate } from 'react-router-dom';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider, db, doc, setDoc } from '../../../Firebase'; // adjust path as needed
+import BackButton from '../../../Back';
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,9 +13,11 @@ const Register = () => {
     phone: '',
     dob: '',
     course: '',
-    password: '',
-    confirmPassword: ''
   });
+
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -21,57 +26,85 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+  const validateForm = () => {
+    const { fullName, email, phone, dob, course } = formData;
+    return fullName && email && phone && dob && course;
+  };
+
+  const generateEnrollmentNumber = (uid) => {
+    const year = new Date().getFullYear().toString().slice(-2);
+    return `STC${year}${uid.slice(0, 6).toUpperCase()}`;
+  };
+
+  const handleGoogleRegister = async () => {
+    if (!validateForm()) {
+      setError('Please fill in all fields before continuing.');
+      setSuccess('');
       return;
     }
-    alert("Registered successfully!");
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      const enrollment = generateEnrollmentNumber(user.uid);
+      const studentRef = doc(db, 'students', user.uid);
+
+      await setDoc(studentRef, {
+        uid: user.uid,
+        enrollmentNumber: enrollment,
+        googleEmail: user.email,
+        fullName: formData.fullName,
+        altEmail: formData.email,
+        phone: formData.phone,
+        dob: formData.dob,
+        course: formData.course,
+        createdAt: new Date(),
+        photoURL: user.photoURL || ''
+      });
+
+      setSuccess('Registered successfully!');
+      setError('');
+
+      // Redirect to Dashboard
+      navigate('/dashboard');
+    } catch (err) {
+      console.error(err);
+      setError('Google Sign-in failed. Try again.');
+      setSuccess('');
+    }
   };
 
   return (
-    <section className="student-login-section">
-      <div className="login-box" data-aos="fade-up">
+    <div className="student-container">
+      <BackButton />
+      <form className="student-form" onSubmit={(e) => e.preventDefault()}>
         <h2>🎓 Student Registration</h2>
-        <p className="subtext">Fill in your details to create a student account</p>
 
-        <form className="register-form" onSubmit={handleSubmit}>
-          <div className="form-grid">
-            <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} required />
-            <input type="email" name="email" placeholder="College Email" value={formData.email} onChange={handleChange} required />
-            <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
-            <input type="date" name="dob" placeholder="Date of Birth" value={formData.dob} onChange={handleChange} required />
-            <select name="course" value={formData.course} onChange={handleChange} required>
-              <option value="">Select Course</option>
-              <option value="B.Sc. Computer Science">B.Sc. Computer Science</option>
-              <option value="B.Com">B.Com</option>
-              <option value="BBA">BBA</option>
-              <option value="BA Psychology">BA Psychology</option>
-              <option value="M.Sc. IT">M.Sc. IT</option>
-              <option value="M.Com">M.Com</option>
-            </select>
-            <input type="password" name="password" placeholder="Create Password" value={formData.password} onChange={handleChange} required />
-          </div>
-
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            className="full-width-input"
-          />
-
-          <button type="submit" className="login-btn">Register</button>
-        </form>
-
-        <div className="login-footer">
-          Already registered? <Link to="/student">🎓 Student Login</Link>
+        <div className="form-grid">
+          <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} />
+          <input type="email" name="email" placeholder="College Email" value={formData.email} onChange={handleChange} />
+          <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
+          <input type="date" name="dob" placeholder="Date of Birth" value={formData.dob} onChange={handleChange} />
+          <select name="course" value={formData.course} onChange={handleChange}>
+            <option value="">Select Course</option>
+            <option value="B.Sc. Computer Science">B.Sc. Computer Science</option>
+            <option value="B.Com">B.Com</option>
+            <option value="BBA">BBA</option>
+            <option value="BA Psychology">BA Psychology</option>
+            <option value="M.Sc. IT">M.Sc. IT</option>
+            <option value="M.Com">M.Com</option>
+          </select>
         </div>
-      </div>
-    </section>
+
+        {error && <p className="student-error">{error}</p>}
+        {success && <p className="student-success">{success}</p>}
+
+        <button type="button" className="google-btn" onClick={handleGoogleRegister}>
+          Continue with Google
+        </button>
+      </form>
+    </div>
   );
 };
 

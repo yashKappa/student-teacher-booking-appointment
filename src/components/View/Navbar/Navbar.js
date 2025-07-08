@@ -46,8 +46,8 @@ const Navbar = () => {
         <div className="settings-dropdown">
           <button className="settings-btn">Login</button>
           <div className="dropdown-content">
-             <Link to="/student">🎓 Student Login</Link>
-              <Link to="/teacher">👨‍🏫 Teacher Login</Link>
+               <Link to="/student" className="btn primary">Student Login</Link>
+  <Link to="/teacher" className="btn secondary">Teacher Login</Link>
           </div>
         </div>
 

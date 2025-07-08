@@ -141,6 +141,23 @@ html,
   100% { transform: translateY(-20px); }
 }
 
+.floating-icons-left {
+  position: absolute;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0.2;
+  font-size: 2.5rem;
+  pointer-events: none;
+  animation: floatIconsLeft 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatIconsLeft {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-20px); }
+}
+
 /* Entrance Animations */
 .animated-fade {
   animation: fadeIn 1.5s ease;

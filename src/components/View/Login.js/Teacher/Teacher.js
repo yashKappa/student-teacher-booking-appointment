@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
-import './Student.css';
-import { Link } from 'react-router-dom'; 
+import '../Student/Student.css'; // Reusing the same CSS
+import { Link } from 'react-router-dom';
 import BackButton from '../../../Back';
 
-const Student = () => {
-  const [studentId, setStudentId] = useState('');
+const Teacher = () => {
+  const [teacherId, setTeacherId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!studentId || !password) {
+
+    if (!teacherId || !password) {
       setError('Please enter both fields.');
       return;
     }
 
-    alert(`Logged in as ${studentId}`);
+    alert(`Logged in as ${teacherId}`);
     setError('');
   };
 
   return (
     <div className="student-container">
-       <BackButton />
+      <BackButton />
       <form className="student-form" onSubmit={handleLogin}>
-        <h2>🎓 Student Login</h2>
+        <h2>👨‍🏫 Teacher Login</h2>
 
-        <label>Enrollment Number</label>
+        <label>Teacher ID</label>
         <input
           type="text"
-          value={studentId}
-          onChange={(e) => setStudentId(e.target.value)}
-          placeholder="e.g. STC2025001"
+          value={teacherId}
+          onChange={(e) => setTeacherId(e.target.value)}
+          placeholder="e.g. TCH2025001"
         />
 
         <label>Password</label>
@@ -45,12 +46,12 @@ const Student = () => {
 
         <button type="submit">Login</button>
 
-        <p className="register-link">
-          Don't have an account? <Link to="/register">Register</Link>
-        </p>
+        <div className="register-link">
+          Not registered? Contact Admin.
+        </div>
       </form>
     </div>
   );
 };
 
-export default Student;
+export default Teacher;
