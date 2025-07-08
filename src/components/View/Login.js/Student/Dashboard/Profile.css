@@ -1,0 +1,78 @@
+
+
+.profile-grid-container {
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(180deg, #fff1f0, #fffbe6, #f9f9f9); /* soft red to yellow */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.data{
+    width: 1000px;
+    padding: 2rem;
+    border-radius: 0.3rem;
+}
+
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.profile-header h2 {
+  font-size: 2.5rem;
+  font-family:cursive;
+  font-weight: bold;
+  color: #363636;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+
+.profile-card {
+  background: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-top: 5px solid #f13c0f;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+.profile-card:hover {
+  transform: translateY(-3px);
+}
+
+.profile-card label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #111;
+}
+
+.profile-card span {
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .profile-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .profile-card {
+    padding: 1rem;
+  }
+}

@@ -61,7 +61,7 @@ const Navbar = () => {
 
           {isLoggedIn && (
             <>
-              <li><Link to="/dashboard">Profile</Link></li>
+              <li><Link to="/profile" >Profile</Link></li>
               <li><Link to="/request">Request</Link></li>
               <li><Link to="/teacher">Teacher</Link></li>
             </>
