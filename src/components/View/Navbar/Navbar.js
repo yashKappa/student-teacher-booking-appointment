@@ -1,6 +1,7 @@
 // src/components/Navbar.js
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,8 +46,8 @@ const Navbar = () => {
         <div className="settings-dropdown">
           <button className="settings-btn">Login</button>
           <div className="dropdown-content">
-            <a href="#student-login">Student Login</a>
-            <a href="#teacher-login">Teacher Login</a>
+             <Link to="/student">🎓 Student Login</Link>
+              <Link to="/teacher">👨‍🏫 Teacher Login</Link>
           </div>
         </div>
 

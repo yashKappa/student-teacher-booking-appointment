@@ -1,7 +1,7 @@
 /* Branch.css */
 
 .branch-section {
-  background-color: #fdfdfd;
+  background: linear-gradient(180deg, #f9f9f9, #f8f5f1); /* soft red to yellow */
   padding: 60px 20px;
   text-align: center;
 }
