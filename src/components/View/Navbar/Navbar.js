@@ -12,7 +12,7 @@ const Navbar = () => {
   // Set active section based on scroll position
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'overview', 'about'];
+      const sections = ['home', 'branch', 'course', 'overview', 'about'];
       const scrollY = window.scrollY + 100;
 
       for (let section of sections) {
@@ -36,12 +36,14 @@ const Navbar = () => {
 
         <ul className="nav-center">
           <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
+          <li><a href="#branch" className={activeSection === 'branch' ? 'active' : ''}>Branch</a></li>
+          <li><a href="#course" className={activeSection === 'course' ? 'active' : ''}>Course</a></li>
           <li><a href="#overview" className={activeSection === 'overview' ? 'active' : ''}>Overview</a></li>
           <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>About</a></li>
         </ul>
 
         <div className="settings-dropdown">
-          <button className="settings-btn">Settings</button>
+          <button className="settings-btn">Login</button>
           <div className="dropdown-content">
             <a href="#student-login">Student Login</a>
             <a href="#teacher-login">Teacher Login</a>
@@ -55,6 +57,7 @@ const Navbar = () => {
         <button className="close-btn" onClick={closeMenu}>×</button>
         <ul>
           <li><a href="#home" onClick={closeMenu}>Home</a></li>
+          <li><a href="#branch" onClick={closeMenu}>Branch</a></li>
           <li><a href="#overview" onClick={closeMenu}>Overview</a></li>
           <li><a href="#about" onClick={closeMenu}>About</a></li>
           <li><a href="#student-login" onClick={closeMenu}>Student Login</a></li>

@@ -6,7 +6,9 @@
 
 #home,
 #overview,
-#about {
+#about,
+#branch,
+#course {
   padding-top: 5rem !important;
 }
 

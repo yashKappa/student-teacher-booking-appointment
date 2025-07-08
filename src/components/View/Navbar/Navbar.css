@@ -70,13 +70,19 @@
 }
 
 .settings-btn {
-  background: #b22222; /* Firebrick red */
-  color: white;
+  background: #ffffff; /* Firebrick red */
+  color: rgb(0, 0, 0);
   border: none;
   font-size: 16px;
   cursor: pointer;
   padding: 5px 10px;
   border-radius: 0.3rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.settings-btn:hover{
+  background-color: #fbc02d;
 }
 
 .dropdown-content {

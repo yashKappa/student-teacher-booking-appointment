@@ -3,6 +3,8 @@ import React from 'react';
 import Navbar from './Navbar/Navbar';
 import Overview from './Overview/Overview';
 import About from './About/About';
+import Branch from './Branch/Branch';
+import Course from './Course/Course';
 import './home.css';
 
 const Home = () => {
@@ -67,6 +69,8 @@ const Home = () => {
 
 
       {/* Overview and About as sections */}
+      <Branch />
+      <Course />
       <Overview />
       <About />
       </div>
