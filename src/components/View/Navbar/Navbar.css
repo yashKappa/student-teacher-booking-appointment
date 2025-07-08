@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   height: 64px;
-  background-color: #1e1e1e; /* Dark neutral */
+  background-color: #330e02; /* Dark neutral */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -178,10 +178,11 @@
   color: #1e1e1e;
   border-radius: 0.3rem;
   font-weight: bold;
+  box-shadow: inset 0px 0px 8px rgba(26, 26, 26, 0.76);
 }
 
 .nav-center li a.active:hover {
-  border: none;
+  border: 1px solid #f5f5f500;
   background-color: #fbc02d;
 }
 
@@ -198,4 +199,19 @@
   .menu-btn {
     display: block;
   }
+}
+
+
+.logout-btn{
+  background-color: #ffffff;
+  border-radius: 0.3rem;
+  border: 1px solid white;
+  padding: 3px 10px;
+  box-shadow: inset 0px 0px 8px gray;
+}
+
+.logout-btn:hover{
+  background-color: #ff0000;
+  color: white;
+  box-shadow: 0px 0px 10px rgb(255, 255, 255);
 }

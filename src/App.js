@@ -4,7 +4,7 @@
   import Student from './components/View/Login.js/Student/Student';
   import Teacher from './components/View/Login.js/Teacher/Teacher';
   import Register from './components/View/Login.js/Student/Register';
-  import Dashboard from './components/View/Login.js/Student/Dashboard';
+  import Dashboard from './components/View/Login.js/Student/Dashboard/Dashboard';
 
   // Utility to check if enrollment cookie exists
   const isUserLoggedIn = () => {
