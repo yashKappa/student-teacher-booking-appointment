@@ -1,78 +1,111 @@
 
+.profile-wrapper {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+  background: linear-gradient(180deg, #fdf6ef, #f7edde); /* soft red to yellow */
+  display: flex;
+  justify-content: center;
+}
 
-.profile-grid-container {
+.profile-data{
+  width: 80%;
+  margin-top: 3rem;
+}
+
+.top-banner img.banner-img {
   width: 100%;
-  padding: 2rem;
-  background: linear-gradient(180deg, #fff1f0, #fffbe6, #f9f9f9); /* soft red to yellow */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  justify-content: center;
-}
-
-.data{
-    width: 1000px;
-    padding: 2rem;
-    border-radius: 0.3rem;
-}
-
-
-.profile-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.profile-header h2 {
-  font-size: 2.5rem;
-  font-family:cursive;
-  font-weight: bold;
-  color: #363636;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-
-.profile-card {
-  background: #f5f5f5;
-  padding: 1.5rem;
   border-radius: 12px;
-  border-top: 5px solid #f13c0f;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease;
-  border-bottom: 1px solid gray;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
+  object-fit: cover;
+  max-height: 200px;
+  box-shadow: 0px 0px 10px gray;
 }
 
-.profile-card:hover {
-  transform: translateY(-3px);
+.profile-section {
+  background: #555454;
+  margin-top: -50px;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0px 0px 10px gray;
+
 }
 
-.profile-card label {
+.profile-img-box img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  margin-top: -60px;
+  background-color: #e0e0e0;
+}
+
+.info-card {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  border: 5px double rgb(99, 99, 99);
+}
+
+.info-card div {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab-btns {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.tab-btns button {
+  padding: 5px 10px;
+  border: 4px double rgb(116, 114, 114);
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 0.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btns button.active,
+.tab-btns button:hover {
+  background-color: #d49b00;
+  color: rgb(2, 2, 2);
+    border: 4px double rgb(245, 244, 244);
+}
+
+.tab-content {
+  margin-top: 20px;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.back-home{
+  background-color: #fffefe;
+  position: absolute;
+  left: 1%;
+  top: 2%;
+  padding: 3px 8px;
+  color: black;
+  border: 1px solid gray;
+  border-radius: 0.3rem;
+  box-shadow: inset 0px 0px 8px rgb(194, 194, 194);
+  transition: 0.3s;
   font-weight: bold;
-  display: block;
-  margin-bottom: 0.3rem;
-  color: #111;
-}
-
-.profile-card span {
-  color: #333;
-}
-
-@media (max-width: 600px) {
-  .profile-header h2 {
-    font-size: 1.6rem;
   }
 
-  .profile-card {
-    padding: 1rem;
+  .back-home:hover{
+    background-color: #d49b00;
+    color: white;
   }
-}

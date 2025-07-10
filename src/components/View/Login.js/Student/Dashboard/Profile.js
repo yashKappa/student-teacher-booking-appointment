@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../../../Firebase';
 import './Profile.css';
+import Request from './Request';
+import Teacher from './Teacher';
+import Message from './Message';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('request');
 
   const getEnrollmentFromCookies = () => {
     const cookies = document.cookie.split(';').map(c => c.trim());
@@ -22,12 +26,11 @@ const Profile = () => {
         const q = query(collection(db, 'students'), where('enrollmentNumber', '==', enrollment));
         const snapshot = await getDocs(q);
         if (!snapshot.empty) {
-          setUserData(snapshot.docs[0].data());
+          const data = snapshot.docs[0].data();
+          setUserData(data);
         }
       } catch (err) {
         console.error(err);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -35,52 +38,51 @@ const Profile = () => {
   }, []);
 
   return (
-   <div className='content'>
-     <div className="profile-grid-container">
-      <div className='data'>
-        <div className="profile-header">
-        <h2>👤 Student Profile</h2>
-      </div>
+    <div className='main'>
+      <Link to="/"> <span className='back-home' ><i class="fa-solid fa-arrow-left"></i> Home </span> </Link>
+      <div className="profile-wrapper">
+        <div className='profile-data'>
+        <div className="top-banner">
+  <img
+    src="https://www.shutterstock.com/image-vector/education-banner-vector-illustration-learning-260nw-2504919975.jpg"
+    alt="Banner"
+    className="banner-img"
+  />
+</div>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : !userData ? (
-        <p>No user data found.</p>
-      ) : (
-        <div className="profile-grid">
-          <div className="profile-card">
-            <label>Full Name</label>
-            <span>{userData.fullName}</span>
-          </div>
-          <div className="profile-card">
-            <label>Enrollment No</label>
-            <span>{userData.enrollmentNumber}</span>
-          </div>
-          <div className="profile-card">
-            <label>Email</label>
-            <span>{userData.email}</span>
-          </div>
-          <div className="profile-card">
-            <label>Phone</label>
-            <span>{userData.phone}</span>
-          </div>
-          <div className="profile-card">
-            <label>Date of Birth</label>
-            <span>{userData.dob}</span>
-          </div>
-          <div className="profile-card">
-            <label>Course</label>
-            <span>{userData.course}</span>
-          </div>
-          <div className="profile-card">
-            <label>Registered On</label>
-            <span>{new Date(userData.createdAt.seconds * 1000).toLocaleDateString()}</span>
-          </div>
+      <div className="profile-section">
+        <div className="profile-img-box">
+          <img src='https://www.pngmart.com/files/23/User-PNG-HD.png' alt="Profile" />
         </div>
-      )}
+
+        {userData && (
+          <div className="info-card">
+            <div><strong>Name:</strong> {userData.fullName}</div>
+            <div><strong>Enrollment:</strong> {userData.enrollmentNumber}</div>
+            <div><strong>Email:</strong> {userData.email}</div>
+            <div><strong>Phone:</strong> {userData.phone}</div>
+            <div><strong>DoB:</strong> {userData.dob}</div>
+            <div><strong>Course:</strong> {userData.course}</div>
+            <div><strong>Registered On:</strong> {new Date(userData.createdAt?.seconds * 1000).toLocaleDateString()}</div>
+          </div>
+        )}
+
+        <div className="tab-btns">
+          <button className={activeTab === 'request' ? 'active' : ''} onClick={() => setActiveTab('request')}>Request</button>
+          <button className={activeTab === 'teacher' ? 'active' : ''} onClick={() => setActiveTab('teacher')}>Teacher</button>
+          <button className={activeTab === 'message' ? 'active' : ''} onClick={() => setActiveTab('message')}>Message</button>
+        </div>
+
+<div className="tab-content">
+  {activeTab === 'request' && <Request />}
+  {activeTab === 'teacher' && <Teacher />}
+  {activeTab === 'message' && <Message />}
+</div>
+
+      </div>
+      </div>
       </div>
     </div>
-   </div>
   );
 };
 
