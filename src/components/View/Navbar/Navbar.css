@@ -120,7 +120,7 @@
   font-size: 24px;
   background: none;
   border: none;
-  color: white;
+  color: rgb(245, 242, 242);
   cursor: pointer;
 }
 
@@ -131,7 +131,7 @@
   right: -250px;
   width: 250px;
   height: 100vh;
-  background-color: #222;
+  background-color: #220202;
   color: white;
   padding: 60px 20px 20px;
   transition: right 0.3s ease;
@@ -155,6 +155,7 @@
   color: white;
   text-decoration: none;
   font-size: 18px;
+  display: block;
 }
 
 .side-menu a:hover {
@@ -184,6 +185,26 @@
 .nav-center li a.active:hover {
   border: 1px solid #f5f5f500;
   background-color: #fbc02d;
+}
+
+.side-menu li a.active {
+  background-color: #fdd835; /* warm yellow */
+  color: #1e1e1e;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  box-shadow: inset 0px 0px 8px rgba(26, 26, 26, 0.76);
+  width: 100%;
+  padding: 3px 10px;
+}
+
+.logout{
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: 1px solid gray;
+  box-shadow: inset 0px 0px 8px gray;
+  font-weight: bold;
+  width: 100%;
+  border-radius: 0.3rem;
 }
 
 /* Responsive */

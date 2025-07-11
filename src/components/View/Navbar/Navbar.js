@@ -1,5 +1,5 @@
 // src/components/Navbar.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
 import './Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const sideMenuRef = useRef(null); // 🔴 Reference to the side menu
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
@@ -44,6 +45,22 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sideMenuRef.current && !sideMenuRef.current.contains(event.target)) {
+        closeMenu();
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpen]);
 
   return (
     <>
@@ -83,14 +100,14 @@ const Navbar = () => {
         <button className="menu-btn" onClick={toggleMenu}>☰</button>
       </nav>
 
-      <div className={`side-menu ${menuOpen ? 'open' : ''}`}>
+      <div ref={sideMenuRef} className={`side-menu ${menuOpen ? 'open' : ''}`}>
         <button className="close-btn" onClick={closeMenu}>×</button>
         <ul>
-          <li><a href="#home" onClick={closeMenu}>Home</a></li>
-          <li><a href="#branch" onClick={closeMenu}>Branch</a></li>
-          <li><a href="#course" onClick={closeMenu}>Course</a></li>
-          <li><a href="#overview" onClick={closeMenu}>Overview</a></li>
-          <li><a href="#about" onClick={closeMenu}>About</a></li>
+          <li><a href="#home" onClick={closeMenu} className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
+          <li><a href="#branch" onClick={closeMenu} className={activeSection === 'branch' ? 'active' : ''}>Branch</a></li>
+          <li><a href="#course" onClick={closeMenu} className={activeSection === 'course' ? 'active' : ''}>Course</a></li>
+          <li><a href="#overview" onClick={closeMenu} className={activeSection === 'overview' ? 'active' : ''}>Overview</a></li>
+          <li><a href="#about" onClick={closeMenu} className={activeSection === 'about' ? 'active' : ''}>About</a></li>
 
           {!isLoggedIn ? (
             <>
@@ -99,9 +116,7 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <li><Link to="/dashboard" onClick={closeMenu}>Profile</Link></li>
-              <li><Link to="/request" onClick={closeMenu}>Request</Link></li>
-              <li><Link to="/teacher" onClick={closeMenu}>Teacher</Link></li>
+              <li><Link to="/profile" onClick={closeMenu}>Dashboard</Link></li>
               <li><button className='logout' onClick={() => { handleLogout(); closeMenu(); }}>Logout</button></li>
             </>
           )}

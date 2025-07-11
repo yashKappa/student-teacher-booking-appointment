@@ -15,6 +15,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [studentName, setStudentName] = useState('');
 
+  // ✅ Check if student is logged in
   useEffect(() => {
     const cookies = document.cookie.split(';').map(c => c.trim());
     const enrollmentCookie = cookies.find(c => c.startsWith('enrollment='));
@@ -22,7 +23,6 @@ const Home = () => {
     if (enrollmentCookie) {
       const enrollmentNumber = enrollmentCookie.split('=')[1];
 
-      // Fetch student name from Firestore
       const fetchStudent = async () => {
         try {
           const q = query(
@@ -43,13 +43,20 @@ const Home = () => {
     }
   }, []);
 
+useEffect(() => {
+  const cookies = document.cookie.split(';').map(c => c.trim());
+  const adminAuthCookie = cookies.find(c => c.startsWith('adminAuth='));
+
+  if (adminAuthCookie && adminAuthCookie.split('=')[1] === 'true') {
+    navigate('/admindash'); // ✅ Redirect admin
+  }
+}, [navigate]);
+
   return (
     <div className="home">
-      <div>
-        <Navbar />
-      </div>
-      <div className='sec'>
-        {/* Home Section */}
+      <Navbar />
+
+      <div className="sec">
         <section id="home" className="section home-section">
           <div className="home-content animated-fade">
             <h1 className="animated-slide">Welcome to S&T Learning Platform</h1>
@@ -59,11 +66,12 @@ const Home = () => {
 
             <div className="home-actions">
               {studentName ? (
-                <Link to="/dashboard" className="btn primary">Student Name : {studentName}</Link>
+                <Link to="/dashboard" className="btn primary">Student Name: {studentName}</Link>
               ) : (
                 <>
                   <Link to="/student" className="btn primary">Student Login</Link>
                   <Link to="/teacher" className="btn secondary">Teacher Login</Link>
+                  <Link to="/admin" className="btn secondary">Admin Login</Link>
                 </>
               )}
             </div>
@@ -109,7 +117,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Other sections */}
+        {/* Other Sections */}
         <Branch />
         <Course />
         <Overview />

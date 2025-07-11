@@ -6,6 +6,8 @@
   import Register from './components/View/Login.js/Student/Register';
   import Dashboard from './components/View/Login.js/Student/Dashboard/Dashboard';
   import Profile from './components/View/Login.js/Student/Dashboard/Profile';
+  import Admin from './components/View/Login.js/Admin/Admin';
+  import AdminDash from './components/View/Login.js/Admin/AdminDash/AdminDash';
 
   // Utility to check if enrollment cookie exists
   const isUserLoggedIn = () => {
@@ -21,14 +23,19 @@
       setIsLoggedIn(isUserLoggedIn());
     }, [location]); // re-check cookie when route changes
 
+    
+
     return (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/student" element={!isLoggedIn ? <Student /> : <Navigate to="/dashboard" />} />
         <Route path="/teacher" element={<Teacher />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admindash" element={<AdminDash />} />
         <Route path="/register" element={!isLoggedIn ? <Register /> : <Navigate to="/dashboard" />} />
+        <Route path="/admin" element={!isLoggedIn ? <Admin /> : <Navigate to="/AdminDash" />} />
         <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/student" />} />
+        <Route path="/admindash" element={isLoggedIn ? <AdminDash /> : <Navigate to="/admin" />} />
       </Routes>
     );
   };
