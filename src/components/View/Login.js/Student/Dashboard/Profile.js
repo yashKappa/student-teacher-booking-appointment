@@ -57,7 +57,7 @@ const Profile = () => {
 
         {userData && (
           <div className="info-card">
-            <div><strong>Name:</strong> {userData.fullName}</div>
+            <div><strong>Name:</strong> {userData.fullName}{userData.surname}</div>
             <div><strong>Enrollment:</strong> {userData.enrollmentNumber}</div>
             <div><strong>Email:</strong> {userData.email}</div>
             <div><strong>Phone:</strong> {userData.phone}</div>

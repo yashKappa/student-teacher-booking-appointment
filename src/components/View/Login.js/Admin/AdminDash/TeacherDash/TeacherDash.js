@@ -1,0 +1,119 @@
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../../../../../Firebase';
+import '../StudentDash/StudentDash.css';
+
+const TeacherDash = () => {
+  const [students, setStudents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+  const fetchStudents = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'teachers'));
+      const data = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setStudents(data);
+    } catch (error) {
+      console.error('Error fetching students:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const confirmDelete = (id) => {
+    setDeleteId(id);
+    setShowConfirm(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteDoc(doc(db, 'teachers', deleteId));
+      setStudents(prev => prev.filter(teacher => teacher.id !== deleteId));
+    } catch (error) {
+      console.error('Error deleting student:', error);
+    }
+    setShowConfirm(false);
+    setDeleteId(null);
+  };
+
+  const filteredStudents = students.filter(student =>
+    student.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.enrollmentNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.course?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className="student-dash">
+      <h2>📘 Teacher Dashboard</h2>
+
+      <input
+        type="text"
+        placeholder="Search by name, enrollment, email or course..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-box"
+      />
+
+      {filteredStudents.length === 0 ? (
+        <p className="no-students">
+          <img alt="No data" src="https://cdni.iconscout.com/illustration/premium/thumb/no-data-found-illustration-download-in-svg-png-gif-file-formats--office-computer-digital-work-business-pack-illustrations-7265556.png" />
+          No Teacher found.
+        </p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Enrollment</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Course</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredStudents.map(student => (
+              <tr key={student.id}>
+                <td>{student.fullName} {student.surname}</td>
+                <td>{student.teacherID}</td>
+                <td>{student.email}</td>
+                <td>{student.phone}</td>
+                <td>{student.course}</td>
+                <td className="trash">
+                  <i
+                    title="Delete Student"
+                    className="fa-solid fa-trash"
+                    onClick={() => confirmDelete(student.id)}
+                  ></i>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* Custom Confirm Modal */}
+      {showConfirm && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h3>Are you sure?</h3>
+            <p>This action will permanently delete the Teacher   record.</p>
+            <div className="popup-buttons">
+              <button className="confirm-btn" onClick={handleDelete}>Yes, Delete</button>
+              <button className="cancel-btn" onClick={() => setShowConfirm(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default TeacherDash;

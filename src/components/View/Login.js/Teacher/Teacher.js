@@ -1,24 +1,43 @@
-import React, { useState } from 'react';
-import '../Student/Student.css'; // Reusing the same CSS
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import '../Student/Student.css';
+import { useNavigate } from 'react-router-dom';
 import BackButton from '../../../Back';
 
 const Teacher = () => {
   const [teacherId, setTeacherId] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  // 🔁 Auto-login if cookie exists
+  useEffect(() => {
+    const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+    const cookieObject = {};
+    cookies.forEach(cookie => {
+      const [name, value] = cookie.split('=');
+      cookieObject[name] = value;
+    });
+
+    if (cookieObject.teacherID) {
+       navigate('/'); // ⬅️ Navigate to home after login
+    }
+  }, [navigate]);
 
   const handleLogin = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!teacherId || !password) {
-      setError('Please enter both fields.');
-      return;
-    }
+  const trimmed = teacherId.trim();
+  if (!trimmed) {
+    setError('Please enter your Teacher ID.');
+    return;
+  }
 
-    alert(`Logged in as ${teacherId}`);
-    setError('');
-  };
+  // ✅ Set cookie
+  const expires = new Date(Date.now() + 7 * 86400000).toUTCString(); // 7 days
+  document.cookie = `teacherID=${trimmed}; expires=${expires}; path=/`;
+
+  setError('');
+  navigate('/'); // ⬅️ Navigate to home after login
+};
 
   return (
     <div className="student-container">
@@ -31,15 +50,7 @@ const Teacher = () => {
           type="text"
           value={teacherId}
           onChange={(e) => setTeacherId(e.target.value)}
-          placeholder="e.g. TCH2025001"
-        />
-
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
+          placeholder="e.g. TC2025101"
         />
 
         {error && <p className="student-error">{error}</p>}

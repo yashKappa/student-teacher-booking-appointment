@@ -16,6 +16,7 @@ const setCookie = (name, value, days = 7) => {
 const Register = () => {
   const [formData, setFormData] = useState({
     fullName: '',
+    surname: '',
     email: '',
     phone: '',
     dob: '',
@@ -43,8 +44,8 @@ const Register = () => {
   };
 
   const validateForm = () => {
-    const { fullName, email, phone, dob, course } = formData;
-    return fullName && email && phone && dob && course;
+    const { fullName, surname, email, phone, dob, course } = formData;
+    return fullName && surname && email && phone && dob && course;
   };
 
   const generateEnrollmentNumber = (uid) => {
@@ -68,6 +69,7 @@ const Register = () => {
         uid: fakeUID,
         enrollmentNumber: enrollment,
         fullName: formData.fullName,
+        surname: formData.surname,
         email: formData.email,
         phone: formData.phone,
         dob: formData.dob,
@@ -96,7 +98,8 @@ const Register = () => {
         <h2>🎓 Student Registration</h2>
 
         <div className="form-grid">
-          <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} />
+          <input type="text" name="fullName" placeholder="Student Name" value={formData.fullName} onChange={handleChange} />
+          <input type="text" name="surname" placeholder="Student Surname" value={formData.surname} onChange={handleChange} />
           <input type="email" name="email" placeholder="College Email" value={formData.email} onChange={handleChange} />
           <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
           <input type="date" name="dob" value={formData.dob} onChange={handleChange} />
