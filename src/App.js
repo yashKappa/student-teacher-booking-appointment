@@ -5,7 +5,7 @@
   import Teacher from './components/View/Login.js/Teacher/Teacher';
   import Register from './components/View/Login.js/Student/Register';
   import Dashboard from './components/View/Login.js/Student/Dashboard/Dashboard';
-  import Profile from './components/View/Login.js/Student/Dashboard/Profile';
+  import Profile from './components/View/Login.js/Student/Dashboard/Profile/Profile';
   import Admin from './components/View/Login.js/Admin/Admin';
   import AdminDash from './components/View/Login.js/Admin/AdminDash/AdminDash';
 

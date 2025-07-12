@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../../../Firebase';
+import { db } from '../../../../../Firebase';
 import './Profile.css';
-import Request from './Request';
-import Teacher from './Teacher';
-import Message from './Message';
+import Request from '../Request/Request';
+import Teacher from '../Teacher/Teacher';
+import Message from '../Message/Message';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {

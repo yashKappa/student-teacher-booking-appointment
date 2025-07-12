@@ -48,7 +48,6 @@
   font-size: 1rem;
   background: #fdfdfd;
   color: #333;
-  width: 100%;
 }
 
 .teacher-form button {
@@ -75,6 +74,18 @@
   font-size: 1rem;
   font-weight: 500;
   color: green;
+}
+
+.course-options label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.course-options{
+  border: 1px solid rgba(128, 128, 128, 0.644);
+  border-radius: 0.3rem;
+  padding: 20px;
 }
 
 /* Responsive */

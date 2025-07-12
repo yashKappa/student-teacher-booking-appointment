@@ -89,6 +89,7 @@ const TeacherDash = () => {
             <tr>
               <th>Name</th>
               <th>Teacher ID</th>
+              <th>Contact ID</th>
               <th>Email</th>
               <th>Phone</th>
               <th>Course</th>
@@ -100,9 +101,10 @@ const TeacherDash = () => {
               <tr key={teacher.id}>
                 <td>{teacher.fullName} {teacher.surname}</td>
                 <td>{teacher.teacherID}</td>
+                <td>{teacher.contactID}</td>
                 <td>{teacher.email}</td>
                 <td>{teacher.phone}</td>
-                <td>{teacher.course}</td>
+                <td>{Array.isArray(teacher.course) ? teacher.course.join(' / ') : teacher.course}</td>
                 <td className="trash">
                   <i
                     title="Delete Teacher"

@@ -100,7 +100,7 @@ const Register = () => {
         <div className="form-grid">
           <input type="text" name="fullName" placeholder="Student Name" value={formData.fullName} onChange={handleChange} />
           <input type="text" name="surname" placeholder="Student Surname" value={formData.surname} onChange={handleChange} />
-          <input type="email" name="email" placeholder="College Email" value={formData.email} onChange={handleChange} />
+            <input type="email" name="email" placeholder="College Email" value={formData.email} onChange={handleChange} />
           <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
           <input type="date" name="dob" value={formData.dob} onChange={handleChange} />
           <select name="course" value={formData.course} onChange={handleChange}>
