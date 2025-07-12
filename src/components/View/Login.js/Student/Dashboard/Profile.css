@@ -1,14 +1,14 @@
-
 .profile-wrapper {
   max-width: 100%;
   margin: auto;
   padding: 20px;
-  background: linear-gradient(180deg, #fdf6ef, #f7edde); /* soft red to yellow */
+  background: linear-gradient(180deg, #fdf6ef, #f7edde);
+  /* soft red to yellow */
   display: flex;
   justify-content: center;
 }
 
-.profile-data{
+.profile-data {
   width: 80%;
   margin-top: 3rem;
 }
@@ -80,18 +80,17 @@
 .tab-btns button:hover {
   background-color: #d49b00;
   color: rgb(2, 2, 2);
-    border: 4px double rgb(245, 244, 244);
+  border: 4px double rgb(245, 244, 244);
 }
 
 .tab-content {
   margin-top: 20px;
-  background: #fafafa;
-  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background-color: #ffffff;
+  padding: 20px 0px 20px 0px;
 }
 
-.back-home{
+.back-home {
   background-color: #fffefe;
   position: absolute;
   left: 1%;
@@ -103,9 +102,18 @@
   box-shadow: inset 0px 0px 8px rgb(194, 194, 194);
   transition: 0.3s;
   font-weight: bold;
-  }
+}
 
-  .back-home:hover{
-    background-color: #d49b00;
-    color: white;
-  }
+.back-home:hover {
+  background-color: #d49b00;
+  color: white;
+}
+
+@media (max-width: 768px) {
+.profile-data {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 0%;
+}
+
+}

@@ -6,7 +6,7 @@ const About = () => {
   return (
    <section id="about" className="section about-section">
   <div className="about-container">
-    <h1>About Us</h1>
+    <h1><i class="fa-solid fa-address-card"></i> About Us</h1>
     <p className="about-intro">
       <strong>S&T</strong> is built to connect students with the best educators. We simplify scheduling, communication, and online learning — all in one place.
     </p>

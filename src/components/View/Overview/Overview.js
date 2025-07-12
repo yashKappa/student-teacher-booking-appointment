@@ -5,7 +5,7 @@ const Overview = () => {
   return (
     <section id="overview" className="section overview-section">
       <div className="overview-header">
-        <h1>Platform Overview</h1>
+        <h1><i class="fa-solid fa-chart-line"></i> Platform Overview</h1>
         <p>Explore how our platform bridges the gap between students and teachers effectively.</p>
       </div>
 
