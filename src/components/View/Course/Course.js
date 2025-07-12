@@ -157,7 +157,7 @@ const Course = () => {
 
   return (
     <section id="course" className="section course-section">
-      <h1>Our Courses</h1>
+      <h1><i class="fa-solid fa-book-open-reader"></i> Our Courses</h1>
       <p className="course-intro">
         Explore a wide range of academic programs across different streams and education levels.
       </p>

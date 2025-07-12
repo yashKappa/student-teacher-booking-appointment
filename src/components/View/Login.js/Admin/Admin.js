@@ -65,7 +65,7 @@ const Admin = () => {
           name="username"
           value={adminData.username}
           onChange={(e) => setAdminData({ ...adminData, username: e.target.value })}
-          placeholder="e.g. Admin_Unified"
+          placeholder="e.g. Admin"
         />
 
         <label>Password</label>

@@ -4,26 +4,29 @@ import { db } from '../../../../../Firebase';
 import '../StudentDash/StudentDash.css';
 
 const TeacherDash = () => {
-  const [students, setStudents] = useState([]);
+  const [teachers, setTeachers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ Added
 
-  const fetchStudents = async () => {
+  const fetchTeachers = async () => {
+    setLoading(true); // ✅ Start loading
     try {
       const querySnapshot = await getDocs(collection(db, 'teachers'));
       const data = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setStudents(data);
+      setTeachers(data);
     } catch (error) {
-      console.error('Error fetching students:', error);
+      console.error('Error fetching teachers:', error);
     }
+    setLoading(false); // ✅ Stop loading
   };
 
   useEffect(() => {
-    fetchStudents();
+    fetchTeachers();
   }, []);
 
   const confirmDelete = (id) => {
@@ -34,24 +37,24 @@ const TeacherDash = () => {
   const handleDelete = async () => {
     try {
       await deleteDoc(doc(db, 'teachers', deleteId));
-      setStudents(prev => prev.filter(teacher => teacher.id !== deleteId));
+      setTeachers(prev => prev.filter(teacher => teacher.id !== deleteId));
     } catch (error) {
-      console.error('Error deleting student:', error);
+      console.error('Error deleting teacher:', error);
     }
     setShowConfirm(false);
     setDeleteId(null);
   };
 
-  const filteredStudents = students.filter(student =>
-    student.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.enrollmentNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.course?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTeachers = teachers.filter(teacher =>
+    teacher.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    teacher.teacherID?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    teacher.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    teacher.course?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="student-dash">
-      <h2>📘 Teacher Dashboard</h2>
+      <h2 className='tech'> Teacher Dashboard</h2>
 
       <input
         type="text"
@@ -61,17 +64,31 @@ const TeacherDash = () => {
         className="search-box"
       />
 
-      {filteredStudents.length === 0 ? (
+      {loading ? (
+        <p className="dataload">
+          <img
+            alt="No data"
+            src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-3.jpg"
+          />
+          Loading Teacher data....
+        </p>
+      ) : filteredTeachers.length === 0 ? (
         <p className="no-students">
-          <img alt="No data" src="https://cdni.iconscout.com/illustration/premium/thumb/no-data-found-illustration-download-in-svg-png-gif-file-formats--office-computer-digital-work-business-pack-illustrations-7265556.png" />
+          <img
+            alt="No data"
+            src="https://cdni.iconscout.com/illustration/premium/thumb/no-data-found-illustration-download-in-svg-png-gif-file-formats--office-computer-digital-work-business-pack-illustrations-7265556.png"
+          />
           No Teacher found.
         </p>
       ) : (
+               <div className="table-responsive">
+               <div className="table-scroll">
+
         <table>
           <thead>
             <tr>
               <th>Name</th>
-              <th>Enrollment</th>
+              <th>Teacher ID</th>
               <th>Email</th>
               <th>Phone</th>
               <th>Course</th>
@@ -79,24 +96,27 @@ const TeacherDash = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredStudents.map(student => (
-              <tr key={student.id}>
-                <td>{student.fullName} {student.surname}</td>
-                <td>{student.teacherID}</td>
-                <td>{student.email}</td>
-                <td>{student.phone}</td>
-                <td>{student.course}</td>
+            {filteredTeachers.map(teacher => (
+              <tr key={teacher.id}>
+                <td>{teacher.fullName} {teacher.surname}</td>
+                <td>{teacher.teacherID}</td>
+                <td>{teacher.email}</td>
+                <td>{teacher.phone}</td>
+                <td>{teacher.course}</td>
                 <td className="trash">
                   <i
-                    title="Delete Student"
+                    title="Delete Teacher"
                     className="fa-solid fa-trash"
-                    onClick={() => confirmDelete(student.id)}
+                    onClick={() => confirmDelete(teacher.id)}
                   ></i>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
+        </div>
+
       )}
 
       {/* Custom Confirm Modal */}
@@ -104,7 +124,7 @@ const TeacherDash = () => {
         <div className="popup-overlay">
           <div className="popup-box">
             <h3>Are you sure?</h3>
-            <p>This action will permanently delete the Teacher   record.</p>
+            <p>This action will permanently delete the Teacher record.</p>
             <div className="popup-buttons">
               <button className="confirm-btn" onClick={handleDelete}>Yes, Delete</button>
               <button className="cancel-btn" onClick={() => setShowConfirm(false)}>Cancel</button>

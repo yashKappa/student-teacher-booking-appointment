@@ -14,6 +14,7 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 const Home = () => {
   const navigate = useNavigate();
   const [studentName, setStudentName] = useState('');
+  const [teacherName, setTeacherName] = useState('');
 
   // ✅ Check if student is logged in
   useEffect(() => {
@@ -43,6 +44,40 @@ const Home = () => {
     }
   }, []);
 
+  useEffect(() => {
+  const cookies = document.cookie.split(';').map(c => c.trim());
+  const teacherIDCookie = cookies.find(c => c.startsWith('teacherID='));
+
+  if (teacherIDCookie) {
+    const teacherID = teacherIDCookie.split('=')[1];
+
+    const fetchTeacher = async () => {
+      try {
+        const q = query(
+          collection(db, 'teachers'),
+          where('teacherID', '==', teacherID)
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const teacher = snapshot.docs[0].data();
+          setTeacherName(teacher.fullName || 'Teacher');
+        }
+      } catch (error) {
+        console.error('Error fetching teacher:', error);
+      }
+    };
+
+    fetchTeacher();
+  }
+}, []);
+
+const getCookieValue = (name) => {
+  const cookie = document.cookie
+    .split('; ')
+    .find(row => row.startsWith(`${name}=`));
+  return cookie ? cookie.split('=')[1] : null;
+};
+
 useEffect(() => {
   const cookies = document.cookie.split(';').map(c => c.trim());
   const adminAuthCookie = cookies.find(c => c.startsWith('adminAuth='));
@@ -64,17 +99,22 @@ useEffect(() => {
               Empowering students and teachers through seamless digital connections.
             </p>
 
-            <div className="home-actions">
-              {studentName ? (
-                <Link to="/dashboard" className="btn primary">Student Name: {studentName}</Link>
-              ) : (
-                <>
-                  <Link to="/student" className="btn primary">Student Login</Link>
-                  <Link to="/teacher" className="btn secondary">Teacher Login</Link>
-                  <Link to="/admin" className="btn secondary">Admin Login</Link>
-                </>
-              )}
-            </div>
+          <div className="home-actions">
+  {studentName ? (
+    <Link to="/dashboard" className="btn primary">Student: {studentName}</Link>
+  ) : teacherName ? (
+    <Link to={`/teacher/dashboard/${getCookieValue('teacherID')}`} className="btn secondary">
+      Teacher: {teacherName}
+    </Link>
+  ) : (
+    <>
+      <Link to="/student" className="btn primary">👨‍🎓 Student Login</Link>
+      <Link to="/teacher" className="btn secondary tech"> Teacher Login</Link>
+      <Link to="/admin" className="btn secondary">👑 Admin Login</Link>
+    </>
+  )}
+</div>
+
 
             <div className="slideshow">
               <div className="slide active">📘 Learn from experienced educators worldwide.</div>
@@ -83,7 +123,7 @@ useEffect(() => {
             </div>
 
             <div className="features-section">
-              <h2>Platform Highlights</h2>
+              <h2><i class="fa-solid fa-layer-group"></i> Platform Highlights</h2>
               <div className="features-grid">
                 <div className="feature-box">
                   <span className="icon">📅</span>

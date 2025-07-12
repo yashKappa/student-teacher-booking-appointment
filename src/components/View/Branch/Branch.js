@@ -65,7 +65,7 @@ const Branch = () => {
 
   return (
     <section id='branch' className="section branch-section">
-      <h1>Our Branches in India</h1>
+      <h1><i class="fa-solid fa-code-branch"></i> Our Branches in India</h1>
       <p className="branch-intro">
         Explore our presence across major cities, each offering high-quality education and support.
       </p>

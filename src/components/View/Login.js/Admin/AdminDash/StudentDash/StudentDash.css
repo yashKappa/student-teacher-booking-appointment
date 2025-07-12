@@ -1,9 +1,7 @@
 /* Main Container */
 .student-dash {
-  padding: 40px 30px;
-  background-color: #f4f4f4;
   font-family: 'Segoe UI', sans-serif;
-  min-height: 100vh;
+  padding: 40px 30px;
 }
 
 /* Title */
@@ -22,7 +20,6 @@
 
 /* Table Styling */
 .student-dash table {
-  width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -55,15 +52,17 @@
 
 /* Search Box */
 .search-box {
-  width: 100%;
+width: 100%;
   max-width: 400px;
+  min-width: 200px;
   padding: 5px 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 15px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, width 0.3s ease;
+  box-sizing: border-box;
 }
 
 .search-box:focus {
@@ -89,6 +88,18 @@
 }
 
 .no-students {
+  text-align: center;
+  color: #555;
+  font-size: 18px;
+}
+
+.dataload img {
+  width: 50px;
+  margin: 20px auto;
+  display: block;
+}
+
+.dataload {
   text-align: center;
   color: #555;
   font-size: 18px;
@@ -167,30 +178,54 @@
 .cancel-btn:hover {
   background-color: #ce8f06;
 }
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
 
+/* Table must be full width but scrollable only when necessary */
+.table-responsive table {
+  width: 100%;
+  min-width: 800px; /* triggers scroll on smaller screens */
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
 
-
-/* Responsive Table (optional for small screens) */
+/* Fix for mobile view */
 @media (max-width: 768px) {
-  .student-dash table, .student-dash thead, .student-dash tbody, .student-dash th, .student-dash td, .student-dash tr {
-    display: block;
+  .student-dash {
+    overflow-x: hidden;
+    position: fixed;
+    width: 100%;
+    padding: 0%;
   }
 
-  .student-dash th {
-    background-color: #fbc02d;
-    text-align: center;
-  }
-
-  .student-dash td {
+  .table-responsive {
+    overflow-x: hidden;
+    width: 100%;
+    position: fixed;
     padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
   }
 
-  .student-dash tr {
-    margin-bottom: 15px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  .table-scroll{
+    overflow: scroll;
   }
+
+  .student-dash h2,
+  .student-dash input{
+    margin: 20px;
+  }
+
+.search-box {
+   padding: 5px;
+    font-size: 14px;
+    max-width: 60%;
+}
+
+}
+
+.tech::before{
+  content: '👩‍🏫';
 }
