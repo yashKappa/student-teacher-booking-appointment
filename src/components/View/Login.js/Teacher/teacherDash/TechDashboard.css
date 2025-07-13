@@ -1,0 +1,119 @@
+.profile-wrapper {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+  background: linear-gradient(180deg, #fdf6ef, #f7edde);
+  /* soft red to yellow */
+  display: flex;
+  justify-content: center;
+}
+
+.profile-data {
+  width: 80%;
+  margin-top: 3rem;
+}
+
+.top-banner img.banner-img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 200px;
+  box-shadow: 0px 0px 10px gray;
+}
+
+.profile-section {
+  background: #555454;
+  margin-top: -50px;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0px 0px 10px gray;
+
+}
+
+.profile-img-box img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  margin-top: -60px;
+  background-color: #e0e0e0;
+}
+
+.info-card {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  border: 5px double rgb(99, 99, 99);
+}
+
+.info-card div {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab-btns {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.tab-btns button {
+  padding: 5px 10px;
+  border: 4px double rgb(116, 114, 114);
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 0.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btns button.active,
+.tab-btns button:hover {
+  background-color: #d49b00;
+  color: rgb(2, 2, 2);
+  border: 4px double rgb(245, 244, 244);
+}
+
+.tab-content {
+  margin-top: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  padding: 20px 0px 20px 0px;
+}
+
+.back-home {
+  background-color: #fffefe;
+  position: absolute;
+  left: 1%;
+  top: 2%;
+  padding: 3px 8px;
+  color: black;
+  border: 1px solid gray;
+  border-radius: 0.3rem;
+  box-shadow: inset 0px 0px 8px rgb(194, 194, 194);
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.back-home:hover {
+  background-color: #d49b00;
+  color: white;
+}
+
+@media (max-width: 768px) {
+.profile-data {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 0%;
+}
+
+}

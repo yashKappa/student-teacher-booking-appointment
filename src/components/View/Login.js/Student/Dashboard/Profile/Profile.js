@@ -5,6 +5,7 @@ import './Profile.css';
 import Request from '../Request/Request';
 import Teacher from '../Teacher/Teacher';
 import Message from '../Message/Message';
+import Permission from '../Permission/Permission';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
@@ -68,15 +69,17 @@ const Profile = () => {
         )}
 
         <div className="tab-btns">
-          <button className={activeTab === 'request' ? 'active' : ''} onClick={() => setActiveTab('request')}>Request</button>
+          <button className={activeTab === 'request' ? 'active' : ''} onClick={() => setActiveTab('request')}>Permission</button>
           <button className={activeTab === 'teacher' ? 'active' : ''} onClick={() => setActiveTab('teacher')}>Teacher</button>
           <button className={activeTab === 'message' ? 'active' : ''} onClick={() => setActiveTab('message')}>Message</button>
+          <button className={activeTab === 'permission' ? 'active' : ''} onClick={() => setActiveTab('permission')}>Permission</button>
         </div>
 
 <div className="tab-content">
   {activeTab === 'request' && <Request />}
   {activeTab === 'teacher' && <Teacher />}
   {activeTab === 'message' && <Message />}
+  {activeTab === 'permission' && <Permission />}
 </div>
 
       </div>

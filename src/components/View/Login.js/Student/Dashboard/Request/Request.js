@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import './Request.css';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../../../../Firebase';
+
+
 
 const Request = () => {
   const [formData, setFormData] = useState({
-    enrollment: '',
-    teacherId: '',
+    course: '',
+    contactId: '',
     name: '',
     subject: '',
     reason: '',
   });
+
+
+
+const getCookie = (name) => {
+  const cookie = document.cookie
+    .split('; ')
+    .find(row => row.startsWith(name + '='));
+  return cookie ? cookie.split('=')[1] : null;
+};
+
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -17,34 +31,65 @@ const Request = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Submitted Data:', formData);
-    alert('Request submitted!');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const enrollment = getCookie('enrollment'); // Read from cookie
+  if (!enrollment) {
+    alert('Student enrollment ID not found in cookies!');
+    return;
+  }
+
+  const { contactId, ...rest } = formData;
+
+  const requestData = {
+    ...rest,
+    submittedAt: new Date(),
+    enrollment
   };
+
+  try {
+    await setDoc(
+      doc(db, 'requests', `${contactId}_${enrollment}`), // unique doc id
+      requestData
+    );
+    alert('✅ Request submitted successfully!');
+    setFormData({
+      course: '',
+      contactId: '',
+      name: '',
+      subject: '',
+      reason: '',
+    });
+  } catch (error) {
+    console.error('Error submitting request:', error);
+    alert('❌ Failed to submit request. Try again.');
+  }
+};
+
 
   return (
     <div className="request-section">
-      <h3>📌 Request Form</h3>
+      <h3>📌 Permision Form</h3>
       <form onSubmit={handleSubmit} className="request-form">
         <div className="form-grid">
           <div className="form-group">
-            <label>Student Enrollment Number:</label>
+            <label>Course:</label>
             <input
               type="text"
-              name="enrollment"
-              value={formData.enrollment}
+              name="course"
+              value={formData.course}
               onChange={handleChange}
               required
             />
           </div>
 
           <div className="form-group">
-            <label>Teacher ID Number:</label>
+            <label>Contact ID Number:</label>
             <input
               type="text"
-              name="teacherId"
-              value={formData.teacherId}
+              name="contactId"
+              value={formData.contactId}
               onChange={handleChange}
               required
             />
@@ -84,7 +129,7 @@ const Request = () => {
           ></textarea>
         </div>
 
-        <button type="submit">Submit Request</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

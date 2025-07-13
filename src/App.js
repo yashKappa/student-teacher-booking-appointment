@@ -8,6 +8,7 @@
   import Profile from './components/View/Login.js/Student/Dashboard/Profile/Profile';
   import Admin from './components/View/Login.js/Admin/Admin';
   import AdminDash from './components/View/Login.js/Admin/AdminDash/AdminDash';
+  import TechDashboard from './components/View/Login.js/Teacher/teacherDash/TechDashboard';
 
   // Utility to check if enrollment cookie exists
   const isUserLoggedIn = () => {
@@ -31,6 +32,7 @@
         <Route path="/student" element={!isLoggedIn ? <Student /> : <Navigate to="/dashboard" />} />
         <Route path="/teacher" element={<Teacher />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/techdashboard" element={<TechDashboard />} />
         <Route path="/admindash" element={<AdminDash />} />
         <Route path="/register" element={!isLoggedIn ? <Register /> : <Navigate to="/dashboard" />} />
         <Route path="/admin" element={!isLoggedIn ? <Admin /> : <Navigate to="/AdminDash" />} />

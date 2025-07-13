@@ -96,7 +96,7 @@ const Navbar = () => {
       if (enrollment) {
         return <li><Link to="/profile">Dashboard</Link></li>;
       } else if (teacherID) {
-        return <li><Link to={`/teacher/dashboard/${teacherID}`}>Dashboard</Link></li>;
+        return <li><Link to="/techdashboard">Dashboard</Link></li>;
       }
       return null;
     })()}
@@ -148,10 +148,11 @@ const Navbar = () => {
       if (enrollment) {
         return <li><Link to="/profile"><i class="fa-solid fa-chart-simple"></i> Dashboard</Link></li>;
       } else if (teacherID) {
-        return <li><Link to={`/teacher/dashboard/${teacherID}`}><i class="fa-solid fa-chart-simple"></i> Dashboard</Link></li>;
+        return <li><Link to="/techdashboard"><i class="fa-solid fa-chart-simple"></i> Dashboard</Link></li>;
       }
       return null;
-    })()}              <li><button className='logout' onClick={() => { handleLogout(); closeMenu(); }}>Logout <i class="fa-solid fa-right-from-bracket"></i></button></li>
+    })()}              
+    <li><button className='logout' onClick={() => { handleLogout(); closeMenu(); }}>Logout <i class="fa-solid fa-right-from-bracket"></i></button></li>
             </>
           )}
         </ul>
