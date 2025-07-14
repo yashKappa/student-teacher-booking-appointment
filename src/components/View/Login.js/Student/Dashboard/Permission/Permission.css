@@ -1,0 +1,154 @@
+/* Main container */
+.permission-container {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 40px 30px;
+  background-color: #f9f9f9;
+}
+
+/* Title */
+.permission-container h2 {
+  color: #d32f2f;
+  font-size: 26px;
+  margin-bottom: 25px;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table */
+.permission-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+}
+
+/* Table Header */
+.permission-table thead {
+  background-color: #fdd835;
+}
+
+.permission-table th {
+  padding: 14px 20px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Table Body */
+.permission-table td {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+/* Hover Row */
+.permission-table tbody tr:hover {
+  background-color: #fff9c4;
+}
+
+/* Messages */
+.loading-message,
+.empty-message {
+  font-size: 16px;
+  color: #555;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.reason{
+    text-align: justify;
+}
+
+.btn-accept, .btn-reject {
+  padding: 6px 10px;
+  margin: 2px 4px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.btn-accept {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-accept:hover {
+  background-color: #388e3c;
+}
+
+.btn-reject {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-reject:hover {
+  background-color: #d32f2f;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .permission-container {
+    padding: 20px 15px;
+  }
+
+  .permission-table {
+    min-width: 600px;
+  }
+
+  .permission-container h2 {
+    font-size: 22px;
+  }
+}
+
+.btn-accept, .btn-reject {
+  padding: 5px 10px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-accept {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-accept:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.btn-reject {
+  background-color: #e53935;
+  color: white;
+}
+
+.btn-reject:disabled {
+  background-color: #ef9a9a;
+  cursor: not-allowed;
+}
+
+.delete-btns {
+  margin-top: 5px;
+  padding: 4px 8px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.delete-btns:hover {
+  background-color: #c9302c;
+}

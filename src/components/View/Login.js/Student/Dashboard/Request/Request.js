@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Request.css';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../../../../Firebase';
 
 
@@ -34,7 +34,7 @@ const getCookie = (name) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const enrollment = getCookie('enrollment'); // Read from cookie
+  const enrollment = getCookie('enrollment');
   if (!enrollment) {
     alert('Student enrollment ID not found in cookies!');
     return;
@@ -45,14 +45,12 @@ const handleSubmit = async (e) => {
   const requestData = {
     ...rest,
     submittedAt: new Date(),
-    enrollment
+    enrollment,
+    contactId, // include for reference
   };
 
   try {
-    await setDoc(
-      doc(db, 'requests', `${contactId}_${enrollment}`), // unique doc id
-      requestData
-    );
+    await addDoc(collection(db, 'requests'), requestData); // ✅ Auto-generated unique ID
     alert('✅ Request submitted successfully!');
     setFormData({
       course: '',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, onSnapshot, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../../../Firebase';
 
 const Request = () => {
@@ -14,62 +14,146 @@ const Request = () => {
   };
 
   useEffect(() => {
-    const fetchRequests = async () => {
-      setLoading(true);
-      const teacherID = getCookie('teacherID');
+    const teacherID = getCookie('teacherID');
 
-      if (!teacherID) {
-        alert('❌ Teacher ID not found in cookies');
-        setLoading(false);
-        return;
-      }
-
-      try {
-        // Fetch from /teachers/{teacherID}/requests/
-        const requestRef = collection(db, 'teachers', teacherID, 'requests');
-        const snapshot = await getDocs(requestRef);
-
-        const fetchedRequests = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setRequests(fetchedRequests);
-      } catch (error) {
-        console.error('Error fetching requests:', error);
-        alert('❌ Failed to fetch requests.');
-      }
-
+    if (!teacherID) {
+      alert('❌ Teacher ID not found in cookies');
       setLoading(false);
+      return;
+    }
+
+    const fetchAndListen = async () => {
+      try {
+        const teacherDocRef = doc(db, 'teachers', teacherID);
+        const teacherSnap = await getDoc(teacherDocRef);
+
+        if (!teacherSnap.exists()) {
+          alert('❌ Teacher document not found!');
+          setLoading(false);
+          return;
+        }
+
+        const teacherData = teacherSnap.data();
+        const contactID = teacherData.contactID;
+
+        if (!contactID) {
+          alert('❌ contactID not found in teacher document!');
+          setLoading(false);
+          return;
+        }
+
+        const unsubscribe = onSnapshot(collection(db, 'requests'), (snapshot) => {
+          const filtered = snapshot.docs
+            .map(doc => ({ id: doc.id, ...doc.data() }))
+            .filter(req => req.contactId === contactID);
+          setRequests(filtered);
+          setLoading(false);
+        }, (error) => {
+          console.error('❌ Error in onSnapshot:', error);
+          alert('❌ Failed to fetch teacher requests.');
+          setLoading(false);
+        });
+
+        return () => unsubscribe(); // Cleanup on unmount
+      } catch (error) {
+        console.error('Error fetching teacher info:', error);
+        alert('❌ Could not fetch teacher data.');
+        setLoading(false);
+      }
     };
 
-    fetchRequests();
+    fetchAndListen();
   }, []);
 
-  if (loading) return <p>Loading requests...</p>;
+  const handleAccept = async (id) => {
+  try {
+    const requestRef = doc(db, 'requests', id);
+    await updateDoc(requestRef, {
+      status: 'accepted',
+      statusUpdatedAt: serverTimestamp(), // 🔥 Add timestamp
+    });
+    alert('✅ Request accepted!');
+  } catch (error) {
+    console.error('Failed to accept request:', error);
+    alert('❌ Failed to update request status.');
+  }
+};
+
+const handleReject = async (id) => {
+  try {
+    const requestRef = doc(db, 'requests', id);
+    await updateDoc(requestRef, {
+      status: 'rejected',
+      statusUpdatedAt: serverTimestamp(), // 🔥 Add timestamp
+    });
+    alert('❌ Request rejected!');
+  } catch (error) {
+    console.error('Failed to reject request:', error);
+    alert('❌ Failed to update request status.');
+  }
+};
+
+
+
+
+  if (loading) return <p className="loading-message">Loading requests...</p>;
 
   return (
-    <div>
-      <h2>📌 Student Requests</h2>
+    <div className="permission-container">
+      <h2>📌 Student Requests for You</h2>
+
       {requests.length === 0 ? (
-        <p>No requests found.</p>
+        <p className="empty-message">No requests found.</p>
       ) : (
-        <ul>
-          {requests.map((req, index) => (
-            <li key={index}>
-              <strong>Student:</strong> {req.name} <br />
-              <strong>Course:</strong> {req.course} <br />
-              <strong>Subject:</strong> {req.subject} <br />
-              <strong>Reason:</strong> {req.reason} <br />
-              <strong>Enrollment:</strong> {req.enrollment} <br />
-              <strong>Submitted At:</strong>{' '}
-              {req.submittedAt?.seconds
-                ? new Date(req.submittedAt.seconds * 1000).toLocaleString()
-                : 'N/A'}
-              <hr />
-            </li>
-          ))}
-        </ul>
+        <div className="table-wrapper">
+          <table className="permission-table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Course</th>
+                <th>Subject</th>
+                <th>Reason</th>
+                <th>Submitted At</th>
+                <th>Status / Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requests.map((req, index) => (
+                <tr key={index}>
+                  <td>{req.name}</td>
+                  <td>{req.course}</td>
+                  <td>{req.subject}</td>
+                  <td className="reason">{req.reason}</td>
+                  <td>
+                    {req.submittedAt?.seconds
+                      ? new Date(req.submittedAt.seconds * 1000).toLocaleString()
+                      : 'N/A'}
+                  </td>
+                  <td>
+                    {req.status === 'accepted' && <span className="status accepted">✅ Accepted</span>}
+                    {req.status === 'rejected' && <span className="status rejected">❌ Rejected</span>}
+                    {!req.status && (
+                      <>
+                        <button
+                          className="btn-accept"
+                          onClick={() => handleAccept(req.id)}
+                        >
+                          Accept
+                        </button>
+                        <button
+                          className="btn-reject"
+                          onClick={() => handleReject(req.id)}
+                        >
+                          Reject
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
