@@ -3,7 +3,6 @@
   margin: auto;
   padding: 20px;
   background: linear-gradient(180deg, #fdf6ef, #f7edde);
-  /* soft red to yellow */
   display: flex;
   justify-content: center;
 }
@@ -11,7 +10,6 @@
 .profile-data {
   width: 90%;
   margin-top: 3rem;
-  background-color: #000000;
 }
 
 .top-banner img.banner-img {

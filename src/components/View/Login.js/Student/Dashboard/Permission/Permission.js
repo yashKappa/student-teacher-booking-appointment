@@ -6,6 +6,7 @@ import './Permission.css';
 const Request = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('pending'); // 🔁 active tab
 
   const getCookie = (name) => {
     const cookie = document.cookie
@@ -23,10 +24,7 @@ const Request = () => {
       return;
     }
 
-    const q = query(
-      collection(db, 'requests'),
-      where('enrollment', '==', enrollment)
-    );
+    const q = query(collection(db, 'requests'), where('enrollment', '==', enrollment));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const matchedRequests = snapshot.docs.map(doc => ({
@@ -54,13 +52,20 @@ const Request = () => {
     }
   };
 
-const is24HoursPassed = (statusUpdatedAt) => {
-  if (!statusUpdatedAt?.seconds) return false;
-  const updatedDate = new Date(statusUpdatedAt.seconds * 1000);
-  const now = new Date();
-  const diff = now.getTime() - updatedDate.getTime();
-  return diff >= 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-};
+  const is24HoursPassed = (updatedAt) => {
+    if (!updatedAt?.seconds) return false;
+    const updatedDate = new Date(updatedAt.seconds * 1000);
+    const now = new Date();
+    const diff = now.getTime() - updatedDate.getTime();
+    return diff >= 24 * 60 * 60 * 1000;
+  };
+
+  const filteredRequests = requests.filter((req) => {
+    if (activeTab === 'pending') return !req.status;
+    if (activeTab === 'accepted') return req.status === 'accepted';
+    if (activeTab === 'rejected') return req.status === 'rejected';
+    return false;
+  });
 
   if (loading) return <p className="loading-message">Loading student requests...</p>;
 
@@ -68,8 +73,16 @@ const is24HoursPassed = (statusUpdatedAt) => {
     <div className="permission-container">
       <h2>📚 Your Submitted Requests</h2>
 
-      {requests.length === 0 ? (
-        <p className="empty-message">No requests submitted yet.</p>
+      {/* 🔘 Tabs */}
+      <div className="tab-buttons">
+        <button onClick={() => setActiveTab('pending')} className={activeTab === 'pending' ? 'active-tab' : ''}>Pending</button>
+        <button onClick={() => setActiveTab('accepted')} className={activeTab === 'accepted' ? 'active-tab' : ''}>Accepted</button>
+        <button onClick={() => setActiveTab('rejected')} className={activeTab === 'rejected' ? 'active-tab' : ''}>Rejected</button>
+      </div>
+
+      {/* 📋 Table */}
+      {filteredRequests.length === 0 ? (
+        <p className="empty-message">No {activeTab} requests found.</p>
       ) : (
         <div className="table-wrapper">
           <table className="permission-table">
@@ -85,8 +98,8 @@ const is24HoursPassed = (statusUpdatedAt) => {
               </tr>
             </thead>
             <tbody>
-              {requests.map((req, index) => {
-                const isExpired = is24HoursPassed(req.submittedAt);
+              {filteredRequests.map((req, index) => {
+                const isExpired = is24HoursPassed(req.statusUpdatedAt);
                 return (
                   <tr key={index}>
                     <td>{req.contactId}</td>
@@ -110,16 +123,23 @@ const is24HoursPassed = (statusUpdatedAt) => {
                       )}
                     </td>
                     <td>
-                       {req.status && isExpired && (
-                        <button
-                          className="delete-btns"
-                          onClick={() => handleDelete(req.id)}
-                        >
-                          Delete
-                        </button>
-                      )}
-                      {!req.status && (
-                        <span className="status pending">You can delete this request 24 hours after it was accepted/rejected.</span>
+                      {req.status ? (
+                        isExpired ? (
+                          <button
+                            className="delete-btns"
+                            onClick={() => handleDelete(req.id)}
+                          >
+                            Delete
+                          </button>
+                        ) : (
+                          <span className="status waiting">
+                            ⏳ You can delete this request 24 hours after it was {req.status}.
+                          </span>
+                        )
+                      ) : (
+                        <span className="status pending">
+                          ℹ️ You can delete the request if it is accepted or rejected after 24 hours.
+                        </span>
                       )}
                     </td>
                   </tr>

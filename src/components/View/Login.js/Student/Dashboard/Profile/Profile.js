@@ -70,7 +70,7 @@ const Profile = () => {
         <div className="tab-btns">
           <button className={activeTab === 'request' ? 'active' : ''} onClick={() => setActiveTab('request')}>Permission</button>
           <button className={activeTab === 'teacher' ? 'active' : ''} onClick={() => setActiveTab('teacher')}>Teacher</button>
-          <button className={activeTab === 'permission' ? 'active' : ''} onClick={() => setActiveTab('permission')}>Permission</button>
+          <button className={activeTab === 'permission' ? 'active' : ''} onClick={() => setActiveTab('permission')}>Request</button>
         </div>
 
 <div className="tab-content">

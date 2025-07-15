@@ -3,6 +3,7 @@ import './AdminDash.css';
 import StudentDash from './StudentDash/StudentDash';
 import TeacherDash from './TeacherDash/TeacherDash';
 import TeacherAdd from './TeacherDash/TeacherAdd';
+import AdminProfile from './AdminProfile';
 import { useNavigate } from 'react-router-dom';
 
 const AdminDash = () => {
@@ -61,7 +62,7 @@ const AdminDash = () => {
 
       {/* Content */}
       <div className="admin-content">
-        {activeSection === 'dashboard' && <h2>📊Welcome to the Admin Dashboard!</h2>}
+        {activeSection === 'dashboard' && <AdminProfile />}
         {activeSection === 'student' && <StudentDash />}
         {activeSection === 'teacher' && <TeacherDash />}
         {activeSection === 'teacheradd' && <TeacherAdd />}

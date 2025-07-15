@@ -152,3 +152,31 @@
 .delete-btns:hover {
   background-color: #c9302c;
 }
+
+.tab-buttons {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.tab-buttons button {
+  padding: 3px 10px;
+  border: 1px double gray;
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab-buttons button:hover{
+  background-color: #352e100c;
+}
+
+.tab-buttons button.active-tab {
+  background-color: #fdd835; /* warm yellow */
+  color: #1e1e1e;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  box-shadow: inset 0px 0px 8px rgba(26, 26, 26, 0.76);
+}
+

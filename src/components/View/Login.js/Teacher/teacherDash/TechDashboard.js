@@ -3,13 +3,10 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../../../Firebase';
 import './TechDashboard.css';
 import Request from '../Request/Request';
-import Teacher from '../Teacher/Teacher';
-import Message from '../Message/Message';
 import { Link } from 'react-router-dom';
 
 const TechDashboard = () => {
 const [teacherData, setTeacherData] = useState(null);
-  const [activeTab, setActiveTab] = useState('request');
 
 const getTeacherIdFromCookies = () => {
   const cookies = document.cookie.split(';').map(c => c.trim());
@@ -70,16 +67,9 @@ useEffect(() => {
 )}
 
 
-        <div className="tab-btns">
-          <button className={activeTab === 'request' ? 'active' : ''} onClick={() => setActiveTab('request')}>Request</button>
-          <button className={activeTab === 'teacher' ? 'active' : ''} onClick={() => setActiveTab('teacher')}>Teacher</button>
-          <button className={activeTab === 'message' ? 'active' : ''} onClick={() => setActiveTab('message')}>Message</button>
-        </div>
 
 <div className="tab-content">
-  {activeTab === 'request' && <Request />}
-  {activeTab === 'teacher' && <Teacher />}
-  {activeTab === 'message' && <Message />}
+  <Request />
 </div>
 
       </div>
