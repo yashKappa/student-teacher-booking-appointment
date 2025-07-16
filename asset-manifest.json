@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/student-teacher-booking-appointment/static/css/main.16e9697d.css",
-    "main.js": "/student-teacher-booking-appointment/static/js/main.469ae8bf.js",
+    "main.css": "/student-teacher-booking-appointment/static/css/main.1b8d2f1b.css",
+    "main.js": "/student-teacher-booking-appointment/static/js/main.93729579.js",
     "static/js/453.2ecaab47.chunk.js": "/student-teacher-booking-appointment/static/js/453.2ecaab47.chunk.js",
     "index.html": "/student-teacher-booking-appointment/index.html",
-    "main.16e9697d.css.map": "/student-teacher-booking-appointment/static/css/main.16e9697d.css.map",
-    "main.469ae8bf.js.map": "/student-teacher-booking-appointment/static/js/main.469ae8bf.js.map",
+    "main.1b8d2f1b.css.map": "/student-teacher-booking-appointment/static/css/main.1b8d2f1b.css.map",
+    "main.93729579.js.map": "/student-teacher-booking-appointment/static/js/main.93729579.js.map",
     "453.2ecaab47.chunk.js.map": "/student-teacher-booking-appointment/static/js/453.2ecaab47.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.16e9697d.css",
-    "static/js/main.469ae8bf.js"
+    "static/css/main.1b8d2f1b.css",
+    "static/js/main.93729579.js"
   ]
 }
