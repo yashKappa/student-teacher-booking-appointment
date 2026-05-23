@@ -77,7 +77,7 @@
 
 .tab-btns button.active,
 .tab-btns button:hover {
-  background-color: #d49b00;
+  background-color: #29210c;
   color: rgb(2, 2, 2);
   border: 4px double rgb(245, 244, 244);
 }

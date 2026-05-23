@@ -104,7 +104,7 @@ const Request = () => {
   if (loading) return <p className="loading-message">Loading requests...</p>;
 
   return (
-    <div className="permission-container">
+    <div>
       <h2>📌 Student Requests for You</h2>
       
       <div className="tab-buttons">
@@ -157,7 +157,7 @@ const Request = () => {
                   </td>
                   <td>
                     {req.status === 'accepted' && (
-                      <span className="status accepted">✅ Accepted</span>
+                      <span className="status accepted">✔️ Accepted</span>
                     )}
                     {req.status === 'rejected' && (
                       <span className="status rejected">❌ Rejected</span>

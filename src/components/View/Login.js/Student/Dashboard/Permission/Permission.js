@@ -70,7 +70,7 @@ const Request = () => {
   if (loading) return <p className="loading-message">Loading student requests...</p>;
 
   return (
-    <div className="permission-container">
+    <div className="">
       <h2>📚 Your Submitted Requests</h2>
 
       {/* 🔘 Tabs */}
